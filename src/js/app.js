@@ -1,0 +1,56 @@
+import { products } from "./data.js";
+console.log(products);
+
+const html = document.documentElement;
+const themeToggler = document.getElementById("theme-toggler");
+const theme = localStorage.getItem("theme");
+
+document.getElementById("year").textContent = new Date().getFullYear();
+
+if (theme) {
+  html.dataset.theme = theme;
+  themeToggler.checked = html.dataset.theme == "light" ? true : false;
+}
+
+themeToggler.addEventListener("click", () => {
+  html.dataset.theme = html.dataset.theme == "light" ? "coffee" : "light";
+  localStorage.setItem("theme", html.dataset.theme);
+  themeToggler.checked = html.dataset.theme == "light" ? true : false;
+});
+
+const template = document.querySelector("template");
+const productList = document.querySelector(".product-list");
+
+products.forEach((product) => {
+  const clone = template.content.cloneNode(true);
+
+  const cardImage = clone.querySelector(".card-image");
+  const cardTitle = clone.querySelector(".card-title");
+  const reating = clone.querySelector(".reating");
+  const card = clone.querySelector(".card");
+  const description = clone.querySelector(".description");
+  const price = clone.querySelector(".price");
+  const sharxlar = clone.querySelector(".sharxlar");
+  const discountPrice = clone.querySelector(".discount-price");
+
+  card.dataset.id = product.id;
+  cardTitle.textContent = product.title;
+  reating.textContent = product.rating;
+  description.textContent = product.description;
+  cardImage.src = product.thumbnail;
+  price.textContent = `${product.price} USD`;
+  discountPrice.textContent = `${product.discountPercentage} USD`;
+  sharxlar.textContent = product.reviews.length;
+
+  productList.appendChild(clone);
+});
+
+const likeButtons = document.querySelectorAll(".like");
+
+likeButtons.forEach((like) => {
+  like.addEventListener("click", () => {
+    like.classList.contains("fa-regular")
+      ? like.classList.replace("fa-regular", "fa-solid")
+      : like.classList.replace("fa-solid", "fa-regular");
+  });
+});
