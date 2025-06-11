@@ -1,5 +1,6 @@
 import { products } from "./data.js";
-console.log(products);
+import formatNumber from "./formatNumber.js";
+import "./search.js";
 
 const html = document.documentElement;
 const themeToggler = document.getElementById("theme-toggler");
@@ -24,6 +25,17 @@ const productList = document.querySelector(".product-list");
 products.forEach((product) => {
   const clone = template.content.cloneNode(true);
 
+  const {
+    id,
+    title,
+    description: _description,
+    thumbnail,
+    price: _price,
+    discountPercentage,
+    reating: _reating,
+    reviews,
+  } = product;
+
   const cardImage = clone.querySelector(".card-image");
   const cardTitle = clone.querySelector(".card-title");
   const reating = clone.querySelector(".reating");
@@ -33,15 +45,14 @@ products.forEach((product) => {
   const sharxlar = clone.querySelector(".sharxlar");
   const discountPrice = clone.querySelector(".discount-price");
 
-  card.dataset.id = product.id;
-  cardTitle.textContent = product.title;
-  reating.textContent = product.rating;
-  description.textContent = product.description;
-  cardImage.src = product.thumbnail;
-  price.textContent = `${product.price} USD`;
-  discountPrice.textContent = `${product.discountPercentage} USD`;
-  sharxlar.textContent = product.reviews.length;
-
+  card.dataset.id = id;
+  cardTitle.textContent = title;
+  reating.textContent = _reating;
+  description.textContent = _description;
+  cardImage.src = thumbnail;
+  price.textContent = formatNumber(_price);
+  discountPrice.textContent = formatNumber(_price, discountPercentage);
+  sharxlar.textContent = reviews.length;
   productList.appendChild(clone);
 });
 

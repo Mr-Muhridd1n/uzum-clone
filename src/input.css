@@ -19,7 +19,7 @@ main {
 
 @layer components {
     .align-elements {
-        @apply max-w-6xl px-4 mx-auto w-full items-center;
+        @apply max-w-[1600px] px-4 mx-auto w-full items-center;
     }
 
     .btn {
