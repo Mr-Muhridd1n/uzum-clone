@@ -1,12 +1,15 @@
 import { products } from "./data.js";
-import formatNumber from "./formatNumber.js";
 import "./search.js";
+import { renderUI } from "./renderUI.js";
 
+const priceSort = document.getElementById("price-sort");
 const html = document.documentElement;
 const themeToggler = document.getElementById("theme-toggler");
 const theme = localStorage.getItem("theme");
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+renderUI(products);
 
 if (theme) {
   html.dataset.theme = theme;
@@ -19,43 +22,6 @@ themeToggler.addEventListener("click", () => {
   themeToggler.checked = html.dataset.theme == "light" ? true : false;
 });
 
-const template = document.querySelector("template");
-const productList = document.querySelector(".product-list");
-
-products.forEach((product) => {
-  const clone = template.content.cloneNode(true);
-
-  const {
-    id,
-    title,
-    description: _description,
-    thumbnail,
-    price: _price,
-    discountPercentage,
-    reating: _reating,
-    reviews,
-  } = product;
-
-  const cardImage = clone.querySelector(".card-image");
-  const cardTitle = clone.querySelector(".card-title");
-  const reating = clone.querySelector(".reating");
-  const card = clone.querySelector(".card");
-  const description = clone.querySelector(".description");
-  const price = clone.querySelector(".price");
-  const sharxlar = clone.querySelector(".sharxlar");
-  const discountPrice = clone.querySelector(".discount-price");
-
-  card.dataset.id = id;
-  cardTitle.textContent = title;
-  reating.textContent = _reating;
-  description.textContent = _description;
-  cardImage.src = thumbnail;
-  price.textContent = formatNumber(_price);
-  discountPrice.textContent = formatNumber(_price, discountPercentage);
-  sharxlar.textContent = reviews.length;
-  productList.appendChild(clone);
-});
-
 const likeButtons = document.querySelectorAll(".like");
 
 likeButtons.forEach((like) => {
@@ -64,4 +30,22 @@ likeButtons.forEach((like) => {
       ? like.classList.replace("fa-regular", "fa-solid")
       : like.classList.replace("fa-solid", "fa-regular");
   });
+});
+
+priceSort.addEventListener("change", (e) => {
+  const price =
+    e.target.options[e.target.selectedIndex].getAttribute("data-price");
+  const productsForSorting = [...products];
+
+  if (price == "low") {
+    const newSort = productsForSorting.sort((a, b) => {
+      return a.price - b.price;
+    });
+    renderUI(newSort);
+  } else {
+    const newSort = productsForSorting.sort((a, b) => {
+      return b.price - a.price;
+    });
+    renderUI(newSort);
+  }
 });

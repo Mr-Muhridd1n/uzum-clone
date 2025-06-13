@@ -51,26 +51,27 @@
               />
             </svg>
           </label>
-          <div class="flex-none md:hidden relative z-10">
-            <ul class="menu menu-horizontal px-1">
-              <li>
-                <details>
-                  <summary>Menu</summary>
-                  <ul class="bg-base-100 rounded-t-none p-2">
-                    <li><a>Home</a></li>
-                    <li><a>About</a></li>
-                    <li><a>Contact</a></li>
-                  </ul>
-                </details>
-              </li>
-            </ul>
-          </div>
+        </div>
+        <div class="indicator">
+          <span
+            class="indicator-item badge badge-secondary"
+            id="productsCounter"
+            >0</span
+          >
+          <button class="btn">
+            <i class="fa-solid fa-basket-shopping"></i>
+          </button>
         </div>
       </div>
     </header>
     <main>
-      <div class="align-elements flex justify-between items-center p-6">
-        <h1 class="text-2xl">Elementlar</h1>
+      <div class="align-elements flex items-center p-6 gap-5">
+        <h1 class="text-2xl mr-auto">Elementlar</h1>
+        <select class="select w-[200px]" id="price-sort">
+          <option disabled selected>Narx boyicha saralash</option>
+          <option data-price="low">Eng arzon</option>
+          <option data-price="hight">Eng qimmat</option>
+        </select>
         <label class="input">
           <svg
             class="h-[1em] opacity-50"
@@ -128,7 +129,7 @@
                       <b class="discount-price">4 099 000</b>
                     </div>
                     <button
-                      class="flex justify-center items-center btn btn-primary rounded-full bg-white border-gray-700 hover:bg-gray-500 text-gray-700 hover:text-white"
+                      class="flex justify-center items-center btn btn-primary rounded-full bg-white border-gray-700 hover:bg-gray-500 text-gray-700 hover:text-white buy-btn"
                     >
                       <i class="fa-solid fa-basket-shopping"></i>
                     </button>
