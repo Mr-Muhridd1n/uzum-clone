@@ -15,15 +15,8 @@
   </head>
   <body>
     <header class="header navbar bg-base-100 shadow-sm w-full mb-7">
-      <div class="flex justify-between align-elements">
-        <a class="btn btn-ghost text-xl">Uzum clone</a>
-        <div class="navbar-center hidden md:flex">
-          <!-- <ul class="menu menu-horizontal text-xl">
-            <li><a href="">Home</a></li>
-            <li><a href="">About</a></li>
-            <li><a href="">Contact</a></li>
-          </ul> -->
-        </div>
+      <div class="flex justify-between align-elements gap-4">
+        <a class="btn btn-ghost text-xl mr-auto">Uzum clone</a>
         <div class="flex">
           <label class="swap swap-rotate">
             <!-- this hidden checkbox controls the state -->
@@ -53,13 +46,13 @@
           </label>
         </div>
         <div class="indicator">
-          <span
-            class="indicator-item badge badge-secondary"
-            id="productsCounter"
-            >0</span
-          >
-          <button class="btn">
-            <i class="fa-solid fa-basket-shopping"></i>
+          <button class="btn btn-circle relative">
+            <i class="fa-solid fa-basket-shopping text-xl"></i>
+            <span
+              class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full px-2 py-0.5 shadow-lg border-2 border-white"
+              id="productsCounter"
+              >0</span
+            >
           </button>
         </div>
       </div>
@@ -103,7 +96,7 @@
               <li id="card" class="card bg-base-100 w-full shadow-sm group">
                 <figure class="overflow-hidden">
                   <i
-                    class="fa-regular fa-heart absolute right-2 top-2 text-2xl z-10 like"
+                    class="fa-regular fa-heart absolute right-2 top-2 text-2xl z-20 like cursor-pointer"
                   ></i>
                   <img
                     src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
@@ -154,6 +147,12 @@
           </div>
         </div>
       </section>
+      <div
+        class="fixed w-full h-full bg-black/80 flex items-center justify-center top-0 z-50"
+        id="loading"
+      >
+        <div class="loading loading-ring loading-xl bg-white"></div>
+      </div>
     </main>
     <footer class="bg-neutral">
       <div

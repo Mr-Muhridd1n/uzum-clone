@@ -4,7 +4,7 @@ import { addBasket } from "./basket.js";
 const template = document.querySelector("template");
 const productList = document.querySelector(".product-list");
 
-export function renderUI(products) {
+export function renderUI({ products }) {
   productList.textContent = "";
   products.forEach((product) => {
     const clone = template.content.cloneNode(true);

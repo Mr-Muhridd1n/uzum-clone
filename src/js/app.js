@@ -1,6 +1,6 @@
-import { products } from "./data.js";
 import "./search.js";
 import { renderUI } from "./renderUI.js";
+import { request } from "./request.js";
 
 const priceSort = document.getElementById("price-sort");
 const html = document.documentElement;
@@ -9,7 +9,14 @@ const theme = localStorage.getItem("theme");
 
 document.getElementById("year").textContent = new Date().getFullYear();
 
-renderUI(products);
+let products = [];
+
+request("https://dummyjson.com/products")
+  .then((data) => {
+    products = data || [];
+    renderUI(products);
+  })
+  .catch((error) => console.log(error));
 
 if (theme) {
   html.dataset.theme = theme;
@@ -22,14 +29,12 @@ themeToggler.addEventListener("click", () => {
   themeToggler.checked = html.dataset.theme == "light" ? true : false;
 });
 
-const likeButtons = document.querySelectorAll(".like");
-
-likeButtons.forEach((like) => {
-  like.addEventListener("click", () => {
-    like.classList.contains("fa-regular")
-      ? like.classList.replace("fa-regular", "fa-solid")
-      : like.classList.replace("fa-solid", "fa-regular");
-  });
+document.addEventListener("click", (event) => {
+  if (event.target.classList.contains("like")) {
+    event.target.classList.contains("fa-regular")
+      ? event.target.classList.replace("fa-regular", "fa-solid")
+      : event.target.classList.replace("fa-solid", "fa-regular");
+  }
 });
 
 priceSort.addEventListener("change", (e) => {
